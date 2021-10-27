@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meme Creator</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="main-screen" onclick="toggleMenu()"></div>
+    <header class="main-header flex space-between align-center">
+      <div class="logo">Memegen</div>
+      <ul class="main-nav flex clean-list">
+        <li><a href="index.html">Gallery</a></li>
+        <li><a href="memes.html">Memes</a></li>
+        <li><a href="about.html">About</a></li>
+        <li>
+          <select name="pets" id="pet-select" class="lang">
+            Language
+            <optgroup label="Language">
+              <option value="he">Hebrew</option>
+              <option value="en">English</option>
+            </optgroup>
+          </select>
+        </li>
+      </ul>
+      <button class="btn-menu main-layout" onclick="toggleMenu()">
+      <img src="icons/hamborger.png" alt=""></button>
+    </header>
+    <section class=" search-bar flex align-center">
+        <input
+          class="search-bar-input"
+          type="text"
+          name="search"
+          id="search"
+          placeholder="Enter search keyword"
+          oninput="onSearch(this.value)"
+        /><span onclick="">🔍</span>
+    </section>
+
+    <main class="main-container-image main-layout align-center">
+      <img src="img/1.jpg" alt="" class="card-image" onclick="" />
+      <img src="img/2.jpg" alt="" class="card-image" onclick="" />
+      <img src="img/3.jpg" alt="" class="card-image" onclick="" />
+      <img src="img/4.jpg" alt="" class="card-image" onclick="" />
+      <img src="img/5.jpg" alt="" class="card-image" onclick="" />
+      <img src="img/6.jpg" alt="" class="card-image" onclick="" />
+      <img src="img/7.jpg" alt="" class="card-image" onclick="" />
+      <img src="img/8.jpg" alt="" class="card-image" onclick="" />
+      <img src="img/9.jpg" alt="" class="card-image" onclick="" />
+      <img src="img/10.jpg" alt="" class="card-image" onclick="" />
+      <img src="img/11.jpg" alt="" class="card-image" onclick="" />
+      <img src="img/12.jpg" alt="" class="card-image" onclick="" />
+      <img src="img/13.jpg" alt="" class="card-image" onclick="" />
+      <img src="img/14.jpg" alt="" class="card-image" onclick="" />
+      <img src="img/15.jpg" alt="" class="card-image" onclick="" />
+      <img src="img/16.jpg" alt="" class="card-image" onclick="" />
+      <img src="img/17.jpg" alt="" class="card-image" onclick="" />
+      <img src="img/18.jpg" alt="" class="card-image" onclick="" />
+    </main>
+
+    <main class="main-container-editor main-layout  align-center " >
+      <canvas
+        id="meme-canvas"
+        height="450"
+        width="450"
+        style="border: 1px solid rgba(0, 0, 0, 0.199)"
+      ></canvas>
+      <div class="meme-btns-group align-center">
+        <input
+          type="text"
+          class="control-txt-input"
+          value=""
+          onkeyup="onChangeText(value)"
+          title="Change Text"
+          data-trans="change-text"
+        />
+        <div class="btn-group1 align-center">
+          <div
+            class="btn-switch-text"
+            onclick="onChangeText(this.value)"
+            title="Switch Text"
+            data-trans="switch-text"
+          >
+            <img src="icons/switch.png" />
+          </div>
+          <div
+            class="btn-new-text"
+            onclick=""
+            title="Add New Text"
+            data-trans="new-text"
+          >
+            <img src="icons/add.png" />
+          </div>
+          <div
+            class="btn-delete-text"
+            onclick=""
+            title="Delete Text"
+            data-trans="delete-text"
+          >
+            <img src="icons/trash.png" />
+          </div>
+          <div
+            class="btn-delete-text"
+            onclick=""
+            title="Delete Text"
+            data-trans="delete-text"
+          ></div>
+        </div>
+
+        <div
+          class="btn-increase"
+          onclick=""
+          title="Increase"
+          data-trans="increase"
+        >
+          <img src="icons/increase-font.png" />
+        </div>
+        <div
+          class="btn-decrease"
+          onclick=""
+          title="Decrease"
+          data-trans="decrease"
+        >
+          <img src="icons/decrease-font.png" />
+        </div>
+        <div
+          class="btn-align-left"
+          onclick=""
+          title="Align Left"
+          data-trans="align-left"
+        >
+          <img src="icons/align-to-left.png" />
+        </div>
+        <div
+          class="btn-align-center"
+          onclick=""
+          title="Align Center"
+          data-trans="align-center"
+        >
+          <img src="icons/align-center.png" />
+        </div>
+        <div class="btn-font" onclick="" title="Choose Font" data-trans="font">
+          <img src="icons/align-to-right.png" />
+        </div>
+
+        <select
+          class="control-select"
+          onchange="onChangeFont(value)"
+          title="Choose Font"
+          data-trans="font"
+        >
+          <option>Mukta-Bold</option>
+          <option>unicode-impact</option>
+          <option>Qahiri-Regular</option>
+          <option>PassionOne-Regular</option>
+          <option>NerkoOne-Regular</option>
+          <option>east-regular</option>
+        </select>
+        <div
+          class="btn-choose-outline-color"
+          onclick=""
+          title="color"
+          data-trans="choose-outline-color"
+        >
+          <img src="icons/A.png" />
+        </div>
+        <div
+          class="btn-choose-outline-color"
+          onclick=""
+          title="color"
+          data-trans="choose-outline-color"
+        >
+          <img src="icons/paint-board.png" />
+        </div>
+        <div class="stickers-div" title="Choose Stickers" data-trans="stickers"></div>
+        <div
+        class="btn-save"
+        onclick=""
+        data-trans="save"
+      >Save
+      </div>
+        <div
+        class="btn-download"
+        onclick=""
+        data-trans="download"
+      >Download
+      </div>
+        <div
+        class="btn-share"
+        onclick=""
+        data-trans="share"
+      >Share on FB
+      </div>
+      </div>
+    </main>
+
+    <footer class="main-footer">
+      <div class="logo">Memegen</div>
+      <h3>all rights reserved 2019</h3>
+    </footer>
+    <script>
+       function toggleMenu() {
+          document.body.classList.toggle('menu-open');
+      }
+    </script>
+  </body>
+</html>
