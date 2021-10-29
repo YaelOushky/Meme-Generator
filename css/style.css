@@ -44,6 +44,7 @@ body.rtl {
 
 img {
   width: 100%;
+  object-fit: cover;
 }
 
 a {
@@ -402,9 +403,7 @@ body.menu-open .main-screen {
 }
 
 @media (max-width: 650px) {
-  .main-container-image {
-
-  }
+ 
   .main-container-editor {
     width: 80%;
     flex-direction: column;
@@ -418,7 +417,7 @@ body.menu-open .main-screen {
     height: 100vh;
     flex-direction: column;
     background-color: rgba(255, 255, 255, 0.9);
-    width: 100%;
+    width: 50%;
     transform: translateX(100%);
     border-inline-start: 1px solid #e0e0e0;
     transition: transform 0.6s, box-shadow 0.6s;
@@ -433,8 +432,6 @@ body.menu-open .main-screen {
     border: none;
     background-color: rgb(240, 205, 211);
   }
- 
-
   canvas{
     width: 380px;
     height: 380px;
