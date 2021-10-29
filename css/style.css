@@ -137,7 +137,7 @@ a {
 .main-container-image {
   display: grid;
   justify-content: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   gap: 10px;
   grid-template-columns: repeat(auto-fill, minMax(100px, 240px));
@@ -402,9 +402,13 @@ body.menu-open .main-screen {
 }
 
 @media (max-width: 650px) {
+  .main-container-image {
+
+  }
   .main-container-editor {
+    width: 80%;
     flex-direction: column;
-    gap: 30px;
+    grid-gap: 12px;
   }
 
   .main-nav {
@@ -414,7 +418,7 @@ body.menu-open .main-screen {
     height: 100vh;
     flex-direction: column;
     background-color: rgba(255, 255, 255, 0.9);
-    width: 200px;
+    width: 100%;
     transform: translateX(100%);
     border-inline-start: 1px solid #e0e0e0;
     transition: transform 0.6s, box-shadow 0.6s;
@@ -428,5 +432,11 @@ body.menu-open .main-screen {
     width: 60px;
     border: none;
     background-color: rgb(240, 205, 211);
+  }
+ 
+
+  canvas{
+    width: 380px;
+    height: 380px;
   }
 }

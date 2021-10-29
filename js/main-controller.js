@@ -6,19 +6,186 @@ var elAbout = document.querySelector('.main-card')
 var elSearchBar = document.querySelector('.search-bar')
 // var elMemes = document.querySelector('')
 
+var gCurrPosX
+var gCurrPosY
 var gCanvas
 var gCtx
 var gLocalImg
+var gStartPos
+var gDragOn = false
+var gFocustxt = true
+var gNoFocus = false
+var gFocusSticker = false
 var gIsLocalImg = false
+var gIsDraw = false
+const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
 function init() {
     renderImgs()
     gCanvas = document.getElementById('meme-canvas')
     gCtx = gCanvas.getContext('2d');
-    gCanvas.width = 500;
-    gCanvas.hight = 500;
+    // gCanvas.width = 500;
+    // gCanvas.height = 500;
     resizeCanvas()
     onPage('Gallery')
+    addDragDrop()
+    // addListeners()
+    // onDisplayMemeImg(getCurrImgId())
+
+}
+
+function moveText(ev) {
+
+    if (gDragOn) {
+
+        ev.preventDefault()
+        ev.stopPropagation()
+
+        var offsetX
+        var offsetY
+        if (ev.type === 'touchmove') {
+            offsetX = ev.changedTouches[0].pageX - gCanvas.getBoundingClientRect().left
+            offsetY = ev.changedTouches[0].pageY - gCanvas.getBoundingClientRect().top
+        } else {
+            offsetX = ev.offsetX
+            offsetY = ev.offsetY
+        }
+
+        var disX = offsetX - gCurrPosX;
+        var disY = offsetY - gCurrPosY;
+
+        var meme = getMeme()
+
+        if (gFocustxt) {
+            var lines = meme.lines
+            lines.forEach(function (line) {
+                if (line.isDragging) {
+                    changePositionX(disX)
+                    changePositionY(disY)
+                }
+            })
+        }
+
+        if (gFocusSticker) {
+            var stickers = meme.stickers
+            stickers.forEach(function (sticker) {
+                if (sticker.isDragging) {
+                    changePositionX(disX)
+                    changePositionY(disY)
+                }
+            })
+        }
+
+
+        onDisplayMemeImg(getCurrImgId())
+
+        gCurrPosX = offsetX;
+        gCurrPosY = offsetY;
+    }
+}
+
+function dragText(ev) {
+
+    ev.preventDefault()
+    ev.stopPropagation()
+
+    var offsetX
+    var offsetY
+    if (ev.type === 'touchstart') {
+        offsetX = ev.changedTouches[0].pageX - gCanvas.getBoundingClientRect().left
+        offsetY = ev.changedTouches[0].pageY - gCanvas.getBoundingClientRect().top
+    } else {
+        offsetX = ev.offsetX
+        offsetY = ev.offsetY
+    }
+
+    var meme = getMeme()
+    var lines = meme.lines
+    var idx = 0
+    lines.forEach(function (line) {
+        if (offsetX > line.pos.x - 160 &&
+            offsetX < line.pos.x + 160 &&
+            offsetY > line.pos.y  - 40 &&
+            offsetY < line.pos.y  + 10) {
+            switchLinesDrogDrop(idx)
+            updateDragging(idx, 'lines', true)
+            document.querySelector('.control-txt-input').value = line.txt
+            onDisplayMemeImg(getCurrImgId())
+            gDragOn = true
+            gFocustxt = true
+            gFocusSticker = false
+            return
+        }
+        idx++
+    })
+    // var stickers = meme.stickers
+    // var idx = 0
+    // stickers.forEach(function (sticker) {
+    //     if (offsetX > sticker.pos.x  - 10 &&
+    //         offsetX < sticker.pos.x  + sticker.width + 10 &&
+    //         offsetY > sticker.pos.y  - 10 &&
+    //         offsetY < sticker.pos.y  + sticker.height + 10) {
+    //         switchStickersDrogDrop(idx)
+    //         updateDragging(idx, 'stickers', true)
+    //         onDisplayMemeImg(getCurrImgId())
+    //         gDragOn = true
+    //         gFocusSticker = true
+    //         gFocustxt = false
+    //         return
+    //     }
+    //     idx++
+    // })
+
+
+    gCurrPosX = offsetX
+    gCurrPosY = offsetY
+    onDisplayMemeImg(getCurrImgId())
+}
+
+function dropText(ev) {
+
+    ev.preventDefault()
+    ev.stopPropagation()
+
+    gDragOn = false
+
+    var meme = getMeme()
+    if (gFocustxt) {
+        var lines = meme.lines
+        var idx = 0
+        lines.forEach(function (line) {
+            if (line.isDrag) {
+                updateDragging(idx, 'lines', false)
+                return
+            }
+            idx++
+        })
+    }
+
+    // if (gFocusSticker) {
+    //     var stickers = meme.stickers
+    //     var idx = 0
+    //     stickers.forEach(function (sticker) {
+    //         if (sticker.isDrag) {
+    //             updateDragging(idx, 'stickers', false)
+    //             return
+    //         }
+    //         idx++
+    //     })
+    // }
+
+    gCurrPosX = undefined
+    gCurrPosY = undefined
+}
+
+function addDragDrop() {
+    gCanvas.addEventListener('mousedown', dragText)
+    gCanvas.addEventListener('mouseup', dropText)
+    gCanvas.addEventListener('mousemove', moveText)
+
+    gCanvas.addEventListener('touchstart', dragText)
+    gCanvas.addEventListener('touchend', dropText)
+    gCanvas.addEventListener('touchmove', moveText)
 }
 
 function onPage(page) {
@@ -86,6 +253,7 @@ function onGetMemeText(lineIdx) {
 }
 
 function onChangeText(text) {
+    gFocustxt = true
     changeText(text)
     onDisplayMemeImg(getCurrImgId())
 }

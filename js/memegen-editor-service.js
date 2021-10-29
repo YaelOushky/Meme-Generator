@@ -9,20 +9,22 @@ var gMeme = {
     selectedLineIdx: 0,
     lines: [
         {
-            txt: 'Im always eat Falafel',
+            txt: 'Falafel',
             size: 40,
             align: 'center',
             color: 'red',
             pos: { x: 500 / 2, y: 60 },
             borderY: 10,
+            isDrag: false
         },
         {
-            txt: ' OKAY OKAY OKAY',
+            txt: 'OKAY OKAY',
             size: 30,
             align: 'center',
             color: 'red',
             pos: { x: 450 / 2, y: 460 },
             borderY: 490,
+            isDrag: false
         },
     ],
 };
@@ -36,7 +38,6 @@ var gStickers = [
         isDragging: false,
         height: 32,
         width: 85
-
     },
     {
         id: 2,
@@ -46,7 +47,6 @@ var gStickers = [
         isDragging: false,
         height: 32,
         width: 85
-
     },
     {
         id: 3,
@@ -56,7 +56,6 @@ var gStickers = [
         isDragging: false,
         height: 32,
         width: 85
-
     },
     {
         id: 4,
@@ -66,7 +65,6 @@ var gStickers = [
         isDragging: false,
         height: 32,
         width: 85
-
     },
 ]
 
@@ -111,13 +109,8 @@ function fontPos(pos) {
             break;
     }
 }
-function drewSticker(){
 
-}
 
-function chooseStickers(){
-
-}
 
 function saveImg(data) {
     gSavedImgs.unshift(data)
@@ -182,6 +175,41 @@ function switchLine() {
     if (gMeme.selectedLineIdx === gMeme['lines'].length) gMeme.selectedLineIdx = 0;
 }
 
+function switchLinesDrogDrop(idx) {
+    gMeme.selectedLineIdx = idx
+}
+
+function updateDragging(idx, type, bool) {
+    if (type === 'lines') gMeme.lines[idx].isDrag = bool
+    // if (type === 'stickers') gMeme.stickers[idx].isDrag = bool
+}
+
+function changePositionY(num) {
+    if (gFocustxt) {
+        if (gMeme.lines.length === 0) return
+        const lineIdx = gMeme.selectedLineIdx
+        gMeme.lines[lineIdx].pos.y += num
+    }
+    // if (gFocusSticker) {
+    //     if (gMeme.stickers.length === 0) return
+    //     const stickerIdx = gMeme.selectedStickerIdx
+    //     gMeme.stickers[stickerIdx].pos.y += num
+    // }
+}
+
+function changePositionX(num) {
+    if (gFocustxt) {
+        if (gMeme.lines.length === 0) return
+        const lineIdx = gMeme.selectedLineIdx
+        gMeme.lines[lineIdx].pos.x += num
+    }
+    // if (gFocusSticker) {
+    //     if (gMeme.stickers.length === 0) return
+    //     const stickerIdx = gMeme.selectedStickerIdx
+    //     gMeme.stickers[stickerIdx].pos.x += num
+    // }
+}
+
 function setSelectedImage(imgId) {
     gMeme.selectedImgId = +imgId;
 }
@@ -209,4 +237,8 @@ function getSelectedLine() {
 
 function getCurrImgId() {
     return gMeme.selectedImgId;
+}
+
+function getMeme() {
+    return gMeme
 }
