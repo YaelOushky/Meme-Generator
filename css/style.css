@@ -34,7 +34,8 @@
 
 /* BASIC */
 body {
-  background-color:F9F3DF;
+  /* color: rgb(158, 158, 158); */
+  background-color: F9F3DF;
   margin: 0;
   font-family: Mukta-Bold;
 }
@@ -56,7 +57,7 @@ a {
 /* LAYOUT */
 
 .main-layout {
-  margin-left: 40px;
+  /* margin-left: 40px; */
   margin-right: 40px;
 }
 
@@ -68,8 +69,9 @@ a {
 /* MAIN HEADER */
 
 .main-header {
+  cursor: pointer;
   border-radius: 30px;
-  background-color:#FFDEFA;
+  background-color: #ffdefa;
   height: 100px;
   width: 100%;
 }
@@ -102,7 +104,7 @@ a {
 .lang {
   font-family: Mukta-Bold;
   cursor: pointer;
-  background-color:#FFDEFA;
+  background-color: #ffdefa;
   width: 150px;
   height: 20px;
   border: none;
@@ -129,7 +131,7 @@ a {
   width: 260px;
   /* height: 30px; */
   border: none;
-  border-bottom: 2px solid #FFDEFA;
+  border-bottom: 2px solid #ffdefa;
   text-align: center;
   color: #000000;
   font-size: 0.9rem;
@@ -228,7 +230,6 @@ canvas {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-auto-rows: 1fr;
 }
-
 
 .btn-upload-img {
   width: 300px;
@@ -364,43 +365,46 @@ img .paint-board {
   text-align: center;
   width: 100%;
   height: 100px;
-  background-color: #FFDEFA;
+  background-color: #ffdefa;
 }
 
 /* ABOUT */
 
 .card-image-about {
+  box-shadow: 3px 3px 3px #888888;
   margin-top: 20px;
   width: 15%;
   border-radius: 50%;
-  /* border: 3px solid; */
   text-align: center;
 }
 
-.about{
-display: flex;
-justify-content: center;
-/* align-items: center; */
-gap: 10px;
+.about {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
 }
 
-.about button{
+.about a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 39px;
   height: 39px;
   border: none;
   border-radius: 12px;
-  background-color: #FFDEFA;
+  background-color: #ffdefa;
   margin-bottom: 20px;
   cursor: pointer;
 }
-.about button:hover{
-background-color:  #a794a4;
+.about a:hover {
+  background-color: #a794a4;
 }
 
-.about img{
+.about img {
   width: 20px;
   height: 20px;
-
 }
 
 /* SCREENS */
@@ -451,7 +455,7 @@ body.menu-open .main-screen {
 
 @media (max-width: 650px) {
   .main-container-editor {
-    margin: 0 ;
+    margin: 0;
     width: 80%;
     flex-direction: column;
     padding: 0px 0;
@@ -480,12 +484,14 @@ body.menu-open .main-screen {
     display: block;
     width: 60px;
     border: none;
-    background-color:#FFDEFA;
+    background-color: #ffdefa;
   }
+
   .main-layout {
     margin-left: 0px;
     margin-right: 0px;
   }
+
   canvas {
     width: 380px;
     height: 380px;

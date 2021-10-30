@@ -240,8 +240,6 @@ function onPage(page) {
             elEditor.style.display = 'none'
             elAbout.style.display = 'none'
             // elMemes.style.display = 'none'
-            clearCanvas()
-            onDisplayMemeImg(getCurrImgId())
             break;
         case 'Memes':
             elSearchBar.style.display = 'flex'
