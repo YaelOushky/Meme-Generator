@@ -25,7 +25,6 @@ function getTrans(transKey) {
 }
 
 function setLang(lang) {
-    console.log(lang);
     gCurrLang = lang;
 }
 

@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meme Creator</title>
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body onload="init()">
-    <div class="main-screen" onclick="toggleMenu()"></div>
-    <header class="main-header flex space-between align-center">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meme Creator</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body onload="init()">
+  <div class="main-screen" onclick="onToggleMenu()"></div>
+  <div class="main-header">
+
+    <header class="main-header flex space-between main-layout align-center">
       <div class="logo">Memegen</div>
       <ul class="main-nav flex clean-list">
         <li data-trans="Gallery" onclick="onPage('Gallery')">Gallery</li>
@@ -25,119 +29,58 @@
           </select>
         </li>
       </ul>
-      <button class="btn-menu main-layout" onclick="toggleMenu()">
-      <img src="icons/hamborger.png" alt=""></button>
+      <button class="btn-menu main-layout" onclick="onToggleMenu()">
+        <img src="icons/hamborger.png" alt=""></button>
     </header>
-    <section class="search-bar flex align-center">
-        <input
-          class="search-bar-input"
-          type="text"
-          name="search"
-          id="search"
-          data-trans="keyword"
-          placeholder="Enter search keyword"
-          oninput="onSearch(this.value)"
-        /><span onclick="">🔍</span>
-    </section>
+  </div>
+  <section class="search-bar flex align-center">
+    <input class="search-bar-input" type="text" name="search" id="search" data-trans="keyword"
+      placeholder="Enter search keyword" oninput="onSearch(this.value)" /><span onclick="">🔍</span>
+  </section>
 
-    <main class="main-container-image main-layout align-center"></main>
+  <main class="main-container-image main-layout align-center"></main>
 
-  <main class="main-container-editor  main-layout align-center " >
-     
-      <canvas
-      class="canvas-container"
-        id="meme-canvas"
-        height="500"
-        width="500"
-        style="border: 1px solid rgba(0, 0, 0, 0.199)"
-      ></canvas>
-      
+  <main class="main-container-editor  main-layout align-center ">
+
+    <canvas class="canvas-container main-layout" id="meme-canvas" height="500" width="500"
+      style="border: 1px solid rgba(0, 0, 0, 0.199)">
+    </canvas>
     </div>
-      <div class="meme-btns-group align-center ">
-        <input
-          type="text"
-          class="control-txt-input"
-          value=""
-          
-          onkeyup="onChangeText(this.value)"
-          title="Change Text"
-          data-trans="change-text"
-        />
-        <div class="btn-group1 align-center">
-          <div
-            class="btn-switch-text"
-            onclick="onSwitchLine()"
-            title="Switch Text"
-            data-trans="switch-text"
-          >
-            <img src="icons/switch.png" />
-          </div>
-          <div
-            class="btn-new-text"
-            onclick="onAddLine()"
-            title="Add New Text"
-            data-trans="new-text"
-          >
-            <img src="icons/add.png" />
-          </div>
-          <div
-            class="btn-delete-text"
-            onclick="onDeleteLine()"
-            title="Delete Text"
-            data-trans="delete-text"
-          >
-            <img src="icons/trash.png" />
-          </div>
-          <div
-            class="btn-upload-img"
-            onclick=""
-            title="upload img"
-            data-trans="upload-img"
-          ><input type="file" id="file" class="inputfile" name="image" onchange="onImgInput(event)" />
+    <div class="meme-btns-group align-center main-layout">
+      <input type="text" class="control-txt-input" value="" onkeyup="onChangeText(this.value)" title="Change Text"
+        data-trans="change-text" />
+      <div class="btn-group1 align-center">
+        <div class="btn-switch-text" onclick="onSwitchLine()" title="Switch Text" data-trans="switch-text">
+          <img src="icons/switch.png" />
+        </div>
+        <div class="btn-new-text" onclick="onAddLine()" title="Add New Text" data-trans="new-text">
+          <img src="icons/add.png" />
+        </div>
+        <div class="btn-delete-text" onclick="onDeleteLine()" title="Delete Text" data-trans="delete-text">
+          <img src="icons/trash.png" />
+        </div>
+        <div class="btn-upload-img" onclick="" title="upload img" data-trans="upload-img">
+          <input type="file" id="file" class="inputfile" name="image" onchange="onImgInput(event)" />
           <label for="file" data-trans="uploadImg">Upload image</label>
         </div>
-        <div
-          class="btn-increase"
-          onclick="onIncreaseFont()"
-          title="Increase"
-          data-trans="increase"
-        >
+        <div class="btn-increase" onclick="onIncreaseFont()" title="Increase" data-trans="increase">
           <img src="icons/increase-font.png" />
         </div>
-        <div
-          class="btn-decrease"
-          onclick="onDecreaseFont()"
-          title="Decrease"
-          data-trans="decrease"
-        >
+        <div class="btn-decrease" onclick="onDecreaseFont()" title="Decrease" data-trans="decrease">
           <img src="icons/decrease-font.png" />
         </div>
-        <div
-          class="btn-align-left"
-          onclick="onChangeFontPos('left')"
-          title="Align Left"
-          data-trans="align-left"
-        >
+        <div class="btn-align-left" onclick="onChangeFontPos('left')" title="Align Left" data-trans="align-left">
           <img src="icons/align-to-left.png" />
         </div>
-        <div
-          class="btn-align-center"
-          onclick="onChangeFontPos('center')"
-          title="Align Center"
-          data-trans="align-center"
-        >
+        <div class="btn-align-center" onclick="onChangeFontPos('center')" title="Align Center"
+          data-trans="align-center">
           <img src="icons/align-center.png" />
         </div>
         <div class="btn-align-to-right" onclick="onChangeFontPos('right')" title="Align Right" data-trans="align-right">
           <img src="icons/align-to-right.png" />
         </div>
 
-        <select
-          class="control-select"
-          onchange="onChangeFont(value)"
-          title="Choose Font"
-          data-trans="font"
-        >
+        <select class="control-select" onchange="onChangeFont(value)" title="Choose Font" data-trans="font">
           <option>Impact</option>
           <option>Mukta-Bold</option>
           <option>unicode-impact</option>
@@ -146,73 +89,62 @@
           <option>NerkoOne-Regular</option>
           <option>east-regular</option>
         </select>
-        <div
-          class="btn-choose-outline-color"
-          onclick=""
-          title="color border text"
-          data-trans="choose-outline-color"
-        >
-        <input onchange="changeColorBorder(this.value)" type="color" id="color-border" name="color-txt" form="frmRegister" value="#000000" />
+
+        <div class="btn-choose-outline-color" onclick="" title="color border text" data-trans="choose-outline-color">
+          <input onchange="changeColorBorder(this.value)" type="color" id="color-border" name="color-txt"
+            form="frmRegister" value="#000000" />
         </div>
-        <div
-          class="btn-choose-fill-color"
-          onclick=""
-          title="color background text"
-          data-trans="choose-fill-color"
-        >
-          <input onchange="onChangeColorFill(this.value)" type="color" id="color-fill" name="color-background" form="frmRegister" value="#000000" />
+        <div class="btn-choose-fill-color" onclick="" title="color background text" data-trans="choose-fill-color">
+          <input onchange="onChangeColorFill(this.value)" type="color" id="color-fill" name="color-background"
+            form="frmRegister" value="#000000" />
         </div>
-        <div class="stickers-div" title="Choose Stickers" data-trans="stickers " onclick="onChooseStickers()">
-          <div onclick="onChooseStickers(this.innerText)" class="stickers-item"><img src="stickers/1.png"></div>
+        <div class="stickers-div" title="Choose Stickers" data-trans="stickers ">
+          <!-- <div onclick="onChooseStickers(this.innerText)" class="stickers-item"><img src="stickers/1.png"></div>
           <div onclick="onChooseStickers(this.innerText)" class="stickers-item"><img src="stickers/2.png"></div>
           <div onclick="onChooseStickers(this.innerText)" class="stickers-item"><img src="stickers/3.png"></div>
-          <div onclick="onChooseStickers(this.innerText)" class="stickers-item"><img src="stickers/4.png"></div>
+          <div onclick="onChooseStickers(this.innerText)" class="stickers-item"><img src="stickers/4.png"></div> -->
         </div>
-        <div
-        class="btn-save"
-        onclick=""
-        data-trans="save"
-      >Save
+        <div class="btn-save" onclick="" data-trans="save">Save
+        </div>
+        <div class="btn-download " onclick="onDownloadImg(this)" download="my-img.jpg" data-trans="download"> <a href="#"
+            class="btn " onclick="onDownloadImg(this)" download="my-img.jpg">Download </a>
+        </div>
+        <div class="btn-share" onclick="uploadImg()" data-trans="share"><span class="share-container "></span> on FB
+        </div>
       </div>
-        <div
-        class="btn-download "
-        onclick="downloadImg(this)"
-        download="my-img.jpg"
-        data-trans="download"
-      > <a href="#" class="btn " onclick="downloadImg(this)" download="my-img.jpg">Download </a>
-      </div>
-      <div
-      class="btn-share"
-      onclick="uploadImg()"
-      data-trans="share"
-      ><span class="share-container " ></span> on FB 
+  </main>
+
+  <p class="user-msg" hidden></p>
+
+  <section class="main-card ">
+    <img src="img/yael.jpg" alt="" class="card-image-about" />
+    <h2 class="card-title">Yael Oushky</h2>
+    <p class="card-text">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit,<br> 
+      sed do eiusmod tempor incididunt ut labore et
+      dolore magna aliqua.<br> Ut enim ad minim veniam, 
+      quis nostrud exercitation ullamco laboris
+    </p>
+    <div class="about">
+      <button title="Linkedin"><img src="icons/linkedin-logo.png" /></button>
+                <button title="Facebook"><img src="icons/facebook-logo.png" /></button>
+                <button title="Github"><img src="icons/github-logo.png" /></button>
     </div>
-  </div>
-</main>
-
-<p class="user-msg" hidden></p>
-
-
-<main class="main-card ">
-  <img src="img/yael.jpg" alt="" class="card-image-about" />
-  <h2 class="card-title">Yael Oushky</h2>
-  <p class="card-text">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-      dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-  </p>
-</main>
-    <footer class="main-footer">
+  </section>
+  <div class="main-footer ">
+    <footer class="main-footer main-layout">
       <div class="logo">Memegen</div>
       <h3 data-trans="allrights">all rights reserved 2021</h3>
     </footer>
+  </div>
 
 
-    <script src="js/main-controller.js"></script>
-    <script src="js/storage-service.js"></script>
-    <script src="js/memegen-gallery-service.js"></script>
-    <script src="js/memegen-editor-service.js"></script>
-    <script src="js/i18n-service.js"></script>
-    <script src="js/upload-service.js"></script>
-    
-  </body>
+  <script src="js/main-controller.js"></script>
+  <script src="js/memegen-service.js"></script>
+  <script src="js/storage-service.js"></script>
+  <script src="js/i18n-service.js"></script>
+  <script src="js/upload-service.js"></script>
+
+</body>
+
 </html>
