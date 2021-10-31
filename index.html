@@ -17,7 +17,7 @@
       <div class="logo" onclick="init()">Memegen</div>
       <ul class="main-nav flex clean-list">
         <li data-trans="Gallery" onclick="onPage('Gallery')">Gallery</li>
-        <li data-trans="Memes" onclick="onPage('Memes')">Memes</li>
+        <li class="memes" data-trans="Memes" onclick="onPage('Memes')">Memes</li>
         <li data-trans="About" onclick="onPage('About')">About</li>
         <li>
           <select name="pets" id="pet-select" class="lang" onchange="onSetLang(this.value)">
@@ -35,16 +35,18 @@
   </div>
   <section class="search-bar flex align-center">
     <input class="search-bar-input" type="text" name="search" id="search" data-trans="keyword"
-      placeholder="Enter search keyword" oninput="onSearch(this.value)" /><span onclick="">🔍</span>
+      placeholder="Enter search keyword" oninput="onSortKeywords(this.value)" /><span onclick="">🔍</span>
   </section>
 
   <main class="main-container-image main-layout align-center"></main>
 
   <main class="main-container-editor  main-layout align-center ">
 
-    <canvas class="canvas-container main-layout" id="meme-canvas" height="500" width="500"
-      style="border: 1px solid rgba(0, 0, 0, 0.199)">
-    </canvas>
+    <div class="canvas-section">
+      <canvas class="canvas-container main-layout" id="meme-canvas" height="500" width="500"
+        style="border: 1px solid rgba(0, 0, 0, 0.199)">
+      </canvas>
+    </div>
     </div>
     <div class="meme-btns-group align-center main-layout">
       <input type="text" class="control-txt-input" value="" onkeyup="onChangeText(this.value)" title="Change Text"
@@ -104,25 +106,26 @@
           <div onclick="onChooseStickers(this.innerText)" class="stickers-item"><img src="stickers/3.png"></div>
           <div onclick="onChooseStickers(this.innerText)" class="stickers-item"><img src="stickers/4.png"></div> -->
         </div>
-        <div class="btn-save" onclick="" data-trans="save">Save
+        <div class="btn-save" onclick="onSaveMeme()" data-trans="save">Save
         </div>
-        <div class="btn-download " onclick="onDownloadImg(this)" download="my-img.jpg" data-trans="download"> <a href="#"
-            class="btn " onclick="onDownloadImg(this)" download="my-img.jpg">Download </a>
+        <div class="btn-download " onmousedown="onDownloadImg(this)" download="my-img.jpg" data-trans="download"> <a
+            href="#" class="btn " onmousedown="onDownloadImg(this)" onclick="downloadImg(this)"
+            download="my-img.jpg">Download </a>
         </div>
         <div class="btn-share" onclick="uploadImg()" data-trans="share"><span class="share-container "></span> on FB
         </div>
       </div>
   </main>
-
+  <section class="main-container-save  "></section>
   <p class="user-msg" hidden></p>
 
   <section class="main-card ">
     <img src="img/yael.jpg" alt="" class="card-image-about" />
     <h2 class="card-title">Yael Oushky</h2>
     <p class="card-text">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit,<br> 
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit,<br>
       sed do eiusmod tempor incididunt ut labore et
-      dolore magna aliqua.<br> Ut enim ad minim veniam, 
+      dolore magna aliqua.<br> Ut enim ad minim veniam,
       quis nostrud exercitation ullamco laboris
     </p>
     <div class="about">

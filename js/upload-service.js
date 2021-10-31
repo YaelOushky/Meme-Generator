@@ -25,18 +25,16 @@ function doUploadImg(imgDataUrl, onSuccess) {
     formData.append('img', imgDataUrl)
 
     fetch('//ca-upload.com/here/upload.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(res => res.text())
-    .then((url)=>{
-        // console.log('Got back live url:', url);
-        onSuccess(url)
-    })
-    .catch((err) => {
-        console.error(err)
-    })
-    
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.text())
+        .then((url) => {
+            // console.log('Got back live url:', url);
+            onSuccess(url)
+        })
+        .catch((err) => {
+            console.error(err)
+        })
+
 }
-
-

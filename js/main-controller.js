@@ -2,17 +2,18 @@
 
 var elGallery = document.querySelector('.main-container-image')
 var elEditor = document.querySelector('.main-container-editor')
+var elSaveMeme = document.querySelector('.main-container-save')
 var elAbout = document.querySelector('.main-card')
 var elSearchBar = document.querySelector('.search-bar')
-// var elMemes = document.querySelector('')
 
+var gSave = []
 var gCurrPosX
 var gCurrPosY
 var gCanvas
 var gCtx
 var gLocalImg
 var gStartPos
-var gNoFocus 
+var gNoFocus
 var gCurrPage = 1
 var gStickersInPage = 3
 var gDragOn = false
@@ -21,6 +22,7 @@ var gFocusSticker = false
 var gIsLocalImg = false
 var gIsDraw = true
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
+const keyImg = 'meme'
 
 function init() {
     gNoFocus = false
@@ -29,6 +31,13 @@ function init() {
     gCtx = gCanvas.getContext('2d');
     onPage('Gallery')
     addDragDrop()
+    loadMyMemeFromStorage()
+    window.addEventListener('resize', checkResizeCanvas)
+}
+
+function reset() {
+    gMeme = getEmptyMeme()
+    gNoFocus = false
 }
 
 function addDragDrop() {
@@ -44,7 +53,7 @@ function addDragDrop() {
 function drawText() {
     for (var i = 0; i < gMeme.lines.length; i++) {
         var textString = onGetMemeText(i);
-        var xCor = getLinePos(i).x;
+        var xCor = getLinePos(i).x
         var yCor = getLinePos(i).y;
         gCtx.textAlign = gMeme.lines[i].align;
         gCtx.font = `${gMeme.lines[i].size}px ${gFont}`;
@@ -68,7 +77,6 @@ function drawText() {
 }
 
 function moveText(ev) {
-
     if (gDragOn) {
         ev.preventDefault()
         ev.stopPropagation()
@@ -120,10 +128,11 @@ function dragText(ev) {
         offsetX = ev.offsetX
         offsetY = ev.offsetY
     }
+
     var meme = getMeme()
     var lines = meme.lines
-    var idx = 0
-    lines.forEach(function (line) {
+
+    lines.forEach(function (line, idx) {
         if (offsetX > line.pos.x - 160 &&
             offsetX < line.pos.x + 160 &&
             offsetY > line.pos.y - 40 &&
@@ -137,11 +146,10 @@ function dragText(ev) {
             gFocusSticker = false
             return
         }
-        idx++
     })
     var stickers = meme.stickers
-    var idx = 0
-    stickers.forEach(function (sticker) {
+
+    stickers.forEach(function (sticker, idx) {
         if (offsetX > sticker.positionX - 10 &&
             offsetX < sticker.positionX + sticker.width + 10 &&
             offsetY > sticker.positionY - 10 &&
@@ -154,7 +162,6 @@ function dragText(ev) {
             gFocustxt = false
             return
         }
-        idx++
     })
     gCurrPosX = offsetX
     gCurrPosY = offsetY
@@ -202,6 +209,11 @@ function onRenderStickers() {
 
 }
 
+function onSortKeywords(Keyword) {
+    var key = Keyword.toLowerCase()
+    sortKeywords(key)
+}
+
 function drawSticker(stickerId) {
     var meme = getMeme()
     var isStickerExist = meme.stickers.find(sticker => sticker.id === stickerId)
@@ -235,25 +247,29 @@ function drawStickers() {
 function onPage(page) {
     switch (page) {
         case 'Gallery':
+            reset()
             elGallery.style.display = 'grid'
             elSearchBar.style.display = 'flex'
             elEditor.style.display = 'none'
             elAbout.style.display = 'none'
-            // elMemes.style.display = 'none'
+            elSaveMeme.style.display = 'none'
             break;
         case 'Memes':
-            elSearchBar.style.display = 'flex'
+            renderSave(gSave)
+            var elMemes = document.querySelector('.memes')
+            elMemes.innerHTML = '<span> MEMES </span>'
+            elSaveMeme.style.display = 'grid'
+            elSearchBar.style.display = 'none'
             elGallery.style.display = 'none'
             elEditor.style.display = 'none'
             elAbout.style.display = 'none'
-            // elMemes.style.display = 'block'
             break;
         case 'About':
+            elSaveMeme.style.display = 'none'
             elSearchBar.style.display = 'none'
             elGallery.style.display = 'none'
             elEditor.style.display = 'none'
             elAbout.style.display = 'block'
-            // elMemes.style.display = 'none'
             break;
     }
 }
@@ -267,6 +283,12 @@ function onSetLang(lang) {
         elBody.classList.remove('rtl')
     }
     doTrans()
+}
+
+function onSaveMeme() {
+    var elMemes = document.querySelector('.memes')
+    elMemes.innerHTML = '<span class="save"> MEMES *</span>'
+    saveMeme()
 }
 
 function onToggleMenu() {
@@ -315,6 +337,9 @@ function onSetCurrImg(imgId) {
     clearCanvas()
     setSelectedImage(+imgId)
     onDisplayMemeImg(getCurrImgId());
+    resizeCanvas()
+    checkResizeCanvas()
+    elSaveMeme.style.display = 'none'
     elEditor.style.display = 'flex'
     elGallery.style.display = 'none'
     elSearchBar.style.display = 'none'
@@ -351,10 +376,10 @@ function onImgInput(ev) {
     onDisplayMemeImg(getCurrImgId())
 }
 
-function onDownloadImg(elLink){
-    // gNoFocus = true
-    // onDisplayMemeImg(getCurrImgId())
-    downloadImg(elLink)
+function onDownloadImg(elLink) {
+    gNoFocus = true
+    onDisplayMemeImg(getCurrImgId())
+    // downloadImg(elLink)
 }
 
 function _showSelectedLine() {
@@ -373,21 +398,35 @@ function loadImageFromInput(ev, onImageReady) {
     reader.readAsDataURL(ev.target.files[0])
 }
 
-function resizeCanvas() {
+function checkResizeCanvas() {
+    if (window.matchMedia('(max-width: 555px)').matches) {
+        if (document.body.classList.contains('small')) return
+        resizeCanvas(350, true)
+        document.body.classList.remove('big')
+        document.body.classList.add('small')
+    } else {
+        if (document.body.classList.contains('big')) return
+        resizeCanvas(600, true)
+        document.body.classList.remove('small')
+        document.body.classList.add('big')
+    }
+}
+
+function resizeCanvas(diff = 600, isRender) {
     var imgId = getSelectedImg()
     var elImg = document.querySelector(`.el${imgId}`)
     var ratio = elImg.width / elImg.height
-    gCanvas.width = 600
+    gCanvas.width = diff
     gCanvas.height = (gCanvas.width / ratio)
     changePosTexts(gCanvas.width, gCanvas.height)
+    if (isRender) onDisplayMemeImg(getCurrImgId())
 }
 
 function onDisplayMemeImg(id) {
     var memeImg = new Image();
     memeImg.src = onGetMemeUrl(id);
     memeImg.onload = function () {
-        if (gIsLocalImg) memeImg = gLocalImg
-        resizeCanvas()
+        // resizeCanvas()
         gCtx.drawImage(memeImg, 0, 0, gCanvas.width, gCanvas.height);
         drawText();
         drawStickers()
@@ -402,6 +441,41 @@ function renderImgs(imgs = gImgs) {
     })
     var elImgContainer = document.querySelector('.main-container-image')
     elImgContainer.innerHTML = strHTML
+}
+
+function renderSave(imgs = gSave) {
+    var memes = imgs.map(meme => {
+        return gImgs.find(img => img.id === meme.selectedImgId)
+    })
+    var strHTML = ''
+    memes.forEach((img, idx) => {
+        strHTML += `<div class="save-img">
+    <img src="${img.url}" id="${img.id}" class="card-image el${img.id}" onclick="onBackImg(${idx})" /> <span class="delete" onclick="onDeleteSaveMeme(${idx})">delete</span> </div>`
+    })
+    var elImgContainer = document.querySelector('.main-container-save')
+    elImgContainer.innerHTML = strHTML
+}
+
+function onBackImg(id) {
+    var meme = loadMyMemeFromStorage()
+    var imgs = gImgs
+    var res = imgs.find(img => img.id === meme[id].selectedImgId)
+    var currMeme = meme.filter(me => me.selectedImgId === res.id)
+    console.log(currMeme);
+    gMeme = currMeme[0]
+    onDisplayMemeImg(res.id)
+    drawText()
+    elSaveMeme.style.display = 'none'
+    elEditor.style.display = 'flex'
+    elGallery.style.display = 'none'
+    elSearchBar.style.display = 'none'
+}
+
+function onDeleteSaveMeme(saveMemeIdx) {
+    var saveMemes = loadMyMemeFromStorage()
+    saveMemes.splice(saveMemeIdx, 1)
+    saveMyMemeToStorage(saveMemes)
+    renderSave()
 }
 
 function renderImg(img) {

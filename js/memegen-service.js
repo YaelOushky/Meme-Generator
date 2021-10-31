@@ -6,6 +6,8 @@ var gBorderColor = 'black'
 var gIsSaveProcess = false;
 var gImgs = getImgs()
 
+
+
 var gMeme = {
     selectedImgId: 1,
     selectedLineIdx: 0,
@@ -37,8 +39,8 @@ var gMeme = {
 var gStickers = [{
         id: 1,
         url: 'stickers/1.png',
-        positionX: 225,
-        positionY: 225,
+        positionX: 100,
+        positionY: 100,
         isDragging: false,
         height: 120,
         width: 160
@@ -46,8 +48,8 @@ var gStickers = [{
     {
         id: 2,
         url: 'stickers/2.png',
-        positionX: 230,
-        positionY: 230,
+        positionX: 100,
+        positionY: 100,
         isDragging: false,
         height: 150,
         width: 150
@@ -55,8 +57,8 @@ var gStickers = [{
     {
         id: 3,
         url: 'stickers/3.png',
-        positionX: 240,
-        positionY: 240,
+        positionX: 100,
+        positionY: 100,
         isDragging: false,
         height: 85,
         width: 100
@@ -64,8 +66,8 @@ var gStickers = [{
     {
         id: 4,
         url: 'stickers/4.png',
-        positionX: 250,
-        positionY: 250,
+        positionX: 100,
+        positionY: 100,
         isDragging: false,
         height: 85,
         width: 85
@@ -73,8 +75,8 @@ var gStickers = [{
     {
         id: 5,
         url: 'stickers/5.png',
-        positionX: 250,
-        positionY: 250,
+        positionX: 100,
+        positionY: 100,
         isDragging: false,
         height: 120,
         width: 130
@@ -82,29 +84,142 @@ var gStickers = [{
 ]
 
 function getImgs() {
-    return [
-        { id: 1, url: 'img/1.jpg', keywords: ['funny'] },
-        { id: 2, url: 'img/2.jpg', keywords: ['history'] },
-        { id: 3, url: 'img/3.jpg', keywords: ['politics', 'funny'] },
-        { id: 4, url: 'img/4.jpg', keywords: ['baby', 'cute'] },
-        { id: 5, url: 'img/5.jpg', keywords: ['baby', 'cute'] },
-        { id: 6, url: 'img/6.jpg', keywords: ['baby', 'cute'] },
-        { id: 7, url: 'img/7.jpg', keywords: ['funny'] },
-        { id: 8, url: 'img/8.jpg', keywords: ['funny', 'cute'] },
-        { id: 9, url: 'img/9.jpg', keywords: ['funny', 'cute', 'baby'] },
-        { id: 10, url: 'img/10.jpg', keywords: ['politics'] },
-        { id: 11, url: 'img/11.jpg', keywords: ['funny'] },
-        { id: 12, url: 'img/12.jpg', keywords: ['politics'] },
-        { id: 13, url: 'img/13.jpg', keywords: ['funny'] },
-        { id: 14, url: 'img/14.jpg', keywords: ['funny'] },
-        { id: 15, url: 'img/15.jpg', keywords: ['funny', 'politics'] },
-        { id: 16, url: 'img/16.jpg', keywords: ['funny'] },
-        { id: 17, url: 'img/17.jpg', keywords: ['funny', 'cute', 'baby'] },
-        { id: 18, url: 'img/18.jpg', keywords: ['cute', 'baby'], },
-        { id: 19, url: 'img/19.jpg', keywords: ['funny'] },
-        { id: 20, url: 'img/20.jpg', keywords: ['funny'] },
-        { id: 21, url: 'img/21.jpg', keywords: ['politics'] },
+    return [{
+            id: 1,
+            url: 'img/1.jpg',
+            keywords: ['funny']
+        },
+        {
+            id: 2,
+            url: 'img/2.jpg',
+            keywords: ['history']
+        },
+        {
+            id: 3,
+            url: 'img/3.jpg',
+            keywords: ['politics', 'funny']
+        },
+        {
+            id: 4,
+            url: 'img/4.jpg',
+            keywords: ['baby', 'cute']
+        },
+        {
+            id: 5,
+            url: 'img/5.jpg',
+            keywords: ['baby', 'cute']
+        },
+        {
+            id: 6,
+            url: 'img/6.jpg',
+            keywords: ['baby', 'cute']
+        },
+        {
+            id: 7,
+            url: 'img/7.jpg',
+            keywords: ['funny']
+        },
+        {
+            id: 8,
+            url: 'img/8.jpg',
+            keywords: ['funny', 'cute']
+        },
+        {
+            id: 9,
+            url: 'img/9.jpg',
+            keywords: ['funny', 'cute', 'baby']
+        },
+        {
+            id: 10,
+            url: 'img/10.jpg',
+            keywords: ['politics']
+        },
+        {
+            id: 11,
+            url: 'img/11.jpg',
+            keywords: ['funny']
+        },
+        {
+            id: 12,
+            url: 'img/12.jpg',
+            keywords: ['politics']
+        },
+        {
+            id: 13,
+            url: 'img/13.jpg',
+            keywords: ['funny']
+        },
+        {
+            id: 14,
+            url: 'img/14.jpg',
+            keywords: ['funny']
+        },
+        {
+            id: 15,
+            url: 'img/15.jpg',
+            keywords: ['funny', 'politics']
+        },
+        {
+            id: 16,
+            url: 'img/16.jpg',
+            keywords: ['funny']
+        },
+        {
+            id: 17,
+            url: 'img/17.jpg',
+            keywords: ['funny', 'cute', 'baby']
+        },
+        {
+            id: 18,
+            url: 'img/18.jpg',
+            keywords: ['cute', 'baby'],
+        },
+        {
+            id: 19,
+            url: 'img/19.jpg',
+            keywords: ['funny']
+        },
+        {
+            id: 20,
+            url: 'img/20.jpg',
+            keywords: ['funny']
+        },
+        {
+            id: 21,
+            url: 'img/21.jpg',
+            keywords: ['politics']
+        },
     ]
+}
+
+function getEmptyMeme() {
+    return {
+        selectedImgId: 1,
+        selectedLineIdx: 0,
+        selectedStickerIdx: 0,
+        lines: [{
+                txt: 'Falafel',
+                size: 40,
+                align: 'center',
+                pos: {
+                    x: 600 / 2,
+                    y: 60
+                },
+                isDrag: false
+            },
+            {
+                txt: 'OKAY OKAY',
+                size: 30,
+                align: 'center',
+                pos: {
+                    x: 600 / 2,
+                    y: 550
+                },
+                isDrag: false
+            },
+        ],
+        stickers: []
+    };
 }
 
 function fontPos(pos) {
@@ -169,6 +284,35 @@ function addLine(txt) {
     gMeme.selectedLineIdx = gMeme.lines.length - 1;
 }
 
+function sortKeywords(Keyword) {
+    var imgs = getImgs()
+    if (!Keyword) return renderImgs()
+    var filter = imgs.filter(img => {
+        return img.keywords.some(Key => Key === Keyword)
+    })
+    renderImgs(filter)
+}
+
+function saveMeme() {
+    gSave.push(gMeme)
+    _saveMemeToStorage()
+}
+
+function loadMyMemeFromStorage() {
+    gSave = loadFromStorage(keyImg)
+    if (!gSave) gSave = []
+    return gSave
+}
+
+function saveMyMemeToStorage(newSaveMemes) {
+    gSave = newSaveMemes
+    _saveMemeToStorage()
+}
+
+function _saveMemeToStorage() {
+    saveToStorage(keyImg, gSave)
+}
+
 function addSticker(sticker) {
     gMeme.stickers.push(sticker)
     gMeme.selectedStickerIdx = gMeme.stickers.length - 1
@@ -227,7 +371,7 @@ function deleteLine() {
     gMeme.selectedLineIdx = gMeme.lines.length - 1;
 }
 
-function deleteSticker(){
+function deleteSticker() {
     gMeme['stickers'].splice(gMeme.selectedStickerIdx, 1);
     gMeme.selectedStickerIdx = gMeme.stickers.length - 1;
 }
@@ -235,7 +379,7 @@ function deleteSticker(){
 function downloadImg(elLink) {
     var imgContent = gCanvas.toDataURL('image/jpeg')
     elLink.href = imgContent
-
+    gNoFocus = false
 }
 
 function clearCanvas() {

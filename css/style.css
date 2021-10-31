@@ -87,7 +87,7 @@ a {
 
 /* MAIN NAV */
 
-.main-nav > * {
+.main-nav>* {
   margin-inline-end: 50px;
 }
 
@@ -116,6 +116,10 @@ a {
 
 .btn-menu {
   display: none;
+}
+
+.save {
+  color: red;
 }
 
 /* SEARCH BAR */
@@ -164,12 +168,12 @@ a {
 
 .main-container-editor {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 100%;
-  padding: 40px 0;
-  gap: 300px;
+  padding: 40px 10%;
+  gap: 20px;
 }
 
 canvas {
@@ -195,8 +199,7 @@ canvas {
   margin-inline-start: 23px;
 }
 
-.meme-btns-group
-  div:not(.btn-group1, .stickers-div, .btn-download, .btn-share, .btn-save) {
+.meme-btns-group div:not(.btn-group1, .stickers-div, .btn-download, .btn-share, .btn-save) {
   background-color: white;
   align-items: center;
   width: 60px;
@@ -232,7 +235,6 @@ canvas {
 }
 
 .btn-upload-img {
-  width: 300px;
   text-align: center;
   grid-column: span 2;
 }
@@ -271,25 +273,26 @@ img .paint-board {
 
 .btn-choose-outline-color {
   background-image: url(../icons/aa.svg);
-  background-size: 27px;
+  background-size: 80%;
   background-repeat: no-repeat;
-  background-position: bottom;
+  background-position: center;
   grid-row: 3/4;
 }
 
 .btn-choose-fill-color {
   background-image: url(../icons/paint-board.png);
-  background-size: 32px;
+  background-size: 80%;
   background-repeat: no-repeat;
-  background-position: bottom;
+  background-position: center;
   grid-row: 3/4;
 }
 
 #color-fill,
 #color-border {
-  border-radius: 6px;
+  /* border-radius: 6px;
   background-color: white;
-  margin: 0 auto;
+  margin: 0 auto; */
+  opacity: 0;
 }
 
 .stickers-div,
@@ -358,6 +361,28 @@ img .paint-board {
   margin-bottom: 40px;
 }
 
+/* main-container-save */
+
+.main-container-save {
+  margin-bottom: 20px;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minMax(100px, 240px));
+}
+
+.save-img {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.delete {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 2px 4px;
+}
+
 /* MAIN FOOTER */
 
 .main-footer {
@@ -398,6 +423,7 @@ img .paint-board {
   margin-bottom: 20px;
   cursor: pointer;
 }
+
 .about a:hover {
   background-color: #a794a4;
 }
@@ -451,15 +477,21 @@ body.menu-open .main-screen {
   list-style-type: none;
 }
 
+@media (max-width: 1220px) {
+  .main-container-editor {
+    margin: 0;
+    flex-direction: column;
+    padding: 10px 10%;
+  }
+}
+
 /* ONLY IN MOBILE */
 
 @media (max-width: 650px) {
   .main-container-editor {
     margin: 0;
-    width: 80%;
     flex-direction: column;
-    padding: 0px 0;
-    grid-gap: 12px;
+    padding: 10px 10%;
   }
 
   .main-nav {
@@ -492,8 +524,64 @@ body.menu-open .main-screen {
     margin-right: 0px;
   }
 
-  canvas {
-    width: 380px;
-    height: 380px;
+  .btn-group1 {
+    width: 100%;
+    grid-gap: 6px;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  }
+
+  .meme-btns-group input {
+    margin-bottom: 0px;
+    margin-inline-start: 0px;
+  }
+
+  .control-txt-input {
+    width: 100%;
+  }
+
+  .stickers-div {
+    width: 100%;
+    height: 100%;
+    /* grid-column: 1/-1; */
+  }
+
+  .meme-btns-group div:not(.btn-group1, .stickers-div, .btn-download, .btn-share, .btn-save) {
+    width: 80%;
+    height: 70%;
+  }
+
+  .btn-download,
+  .btn-share,
+  .btn-save {
+    font-size: 1rem;
+    width: 100%;
+    height: 100%;
+  }
+
+  .btn-upload-img {
+    font-size: 0.7rem;
+  }
+
+  .sticker {
+    width: 20%;
+  }
+
+  #color-fill,
+  #color-border {
+    opacity: 0;
+  }
+
+  .btn-choose-fill-color,
+  .btn-choose-outline-color {
+    background-position: center;
+  }
+
+  .control-select {
+    height: 40.63px;
+    width: 100%;
+  }
+
+  .btn-delete-text img {
+    height: 90%;
   }
 }

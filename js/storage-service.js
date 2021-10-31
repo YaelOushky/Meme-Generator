@@ -14,7 +14,3 @@ function saveToStorage(key, data) {
 function clearFromStorage(key) {
   localStorage.removeItem(key);
 }
-
-
-
-
